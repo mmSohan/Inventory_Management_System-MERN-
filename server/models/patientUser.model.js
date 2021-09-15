@@ -9,6 +9,12 @@ const patientSchema = new mongoose.Schema({
         maxlength: 50,
         required: true
     },
+    patientID:{
+        type: String,
+        minlength: 3,
+        maxlength:6,
+        required: true
+    },  
     docName: {
         type: String,
         minlength: 3,
@@ -28,18 +34,10 @@ const patientSchema = new mongoose.Schema({
         maxlength: 15
     },
     email: {
-        type: String,
-        required: false,
-        minlength: 5,
-        maxlength: 255,
-        unique: true
+        type: String
     },
     nidPassDv: {
-        type: String,
-        required: false,
-        minlength: 5,
-        maxlength: 50,
-        unique: true
+        type: String
     },
     address: {
         type: String,
@@ -65,7 +63,18 @@ const patientSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
-    }
+    },
+    status:{
+        type: String,
+        default: "Active"
+    },
+    userType:[
+        {
+            name: String,
+            designation: String,
+            branch: String
+        }
+    ]
 
 });
 

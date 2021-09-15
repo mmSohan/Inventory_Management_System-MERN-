@@ -8,13 +8,13 @@ router.get('/getUser', async (req, res) => {
 
     const user = await PatientUser.find()
         .select('-password -docName -careGiverName -nidPassDv  -isAdmin')
-        .sort('ID')
+        .sort('patientID')
 
     res.send(user);
 });
 
 router.post('/getEditableUser', (req, res) => {
-    PatientUser.find({ LogInId: req.body.LogInId }, (docs, err) => {
+    PatientUser.find({ patientID: req.body.patientID }, (docs, err) => {
         if (!err) {
             res.send(docs);
         }
@@ -37,7 +37,7 @@ router.post('/searchPatient', (req, res) => {
 
 router.post('/updateUser', async (req, res) => {
 
-    const user = await PatientUser.findOneAndUpdate({ LogInId: req.body.LogInId }, {
+    const user = await PatientUser.findOneAndUpdate({ patientID: req.body.patientID }, {
         patientName: req.body.patientName,
         careGiverName: req.body.careGiverName,
         docName: req.body.docName,
@@ -49,7 +49,7 @@ router.post('/updateUser', async (req, res) => {
     }, { new: true })
 
     if (!user) return res.status(404).send('The user with the given ID was not found.');
-    res.send('Post Update Successfully');
+    res.send('Patient Update Successfully');
 })
 
 router.post('/addUser', async (req, res) => {
@@ -63,7 +63,7 @@ router.post('/addUser', async (req, res) => {
     if (user) return res.status(400).send('Phone Number Already Registered.');
 
     user = new PatientUser(_.pick(req.body,
-        ['patientName', 'LogInId', 'docName', 'careGiverName', 'phoneNo', 'email', 'password', 'nidPassDv', 'address', 'delAddress']));
+        ['patientName', 'patientID', 'LogInId', 'docName', 'careGiverName', 'phoneNo', 'email', 'password', 'nidPassDv', 'address', 'delAddress', 'userType']));
 
     const salt = await bcrypt.genSalt(10);
 
@@ -73,7 +73,7 @@ router.post('/addUser', async (req, res) => {
 
     await user.save(function (err) {
         if (!err) {
-            res.send('New post added successfully..')
+            res.send('New patient added successfully..')
         }
         else {
             res.send(err)
@@ -84,7 +84,7 @@ router.post('/addUser', async (req, res) => {
 
 router.post('/deleteUser', async (req, res) => {
 
-    PatientUser.findOneAndRemove({ LogInId: req.body.LogInId }, function (err, docs) {
+    PatientUser.findOneAndRemove({ patientID: req.body.patientID }, function (err, docs) {
         if (!err) {
             res.send("User Deleted Successfully...")
         }
@@ -118,6 +118,15 @@ router.post('/logIn', async (req, res) => {
     // res.send(token);
 });
 
+router.get('/getCount', async (req, res) => {
+
+    PatientUser.count({}, function(err, count){
+        //console.log(count);
+        let c = count.toString()
+        res.send(c);
+        
+    });
+});
 
 module.exports = router;
 
