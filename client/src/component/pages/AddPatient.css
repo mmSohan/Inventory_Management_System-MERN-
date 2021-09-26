@@ -1,0 +1,51 @@
+#C-header{
+    margin-left: '20rem';
+}
+
+.text-break{
+    word-break: break-word !important; 
+    overflow-wrap: break-word !important;
+}
+
+.login-wrapper {
+    background-color: #e4e3e4;
+    height: 100vh;
+  }
+  .login-form {
+    width: 500px;
+    background: #fff;
+    margin: 0 auto;
+    padding-top : "3rem";
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .btn-submit {
+    letter-spacing: 0.1rem;
+    background: linear-gradient(to right, #801ace, #ec2cc3);
+    color: whitesmoke;
+  }
+  .x_panel{
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px 17px;
+  display: inline-block;
+  background: #fff;
+  border: 1px solid #E6E9ED;
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+  opacity: 1;
+  transition: all .2s ease;
+  }
+  .dropdown-menu{
+    position: relative;
+    left: 13.7rem;
+    width: 4rem;
+  }
+  #datePicker{
+    position: relative;
+   
+    width: 33.5rem;
+    
+  }

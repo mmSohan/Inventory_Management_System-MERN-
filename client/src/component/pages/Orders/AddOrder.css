@@ -1,0 +1,10 @@
+body {
+    color: #73879C;
+    font-family: "Helvetica Neue", Arial, "Droid Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+}
+#datePicker{
+    height: 35px;
+   width: 157px;
+}
